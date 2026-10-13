@@ -124,6 +124,25 @@ export const Library: React.FC<LibraryProps> = ({
 
             <p className={styles.modalDescription}>{detailExercise.description}</p>
 
+            {/* Ảnh GIF hướng dẫn động tác */}
+            {detailExercise.gifUrl && (
+              <div className={styles.gifContainer}>
+                <div className={styles.gifHeader}>
+                  <span className={styles.gifBadge}>🎬 Hướng dẫn động tác</span>
+                </div>
+                <img
+                  src={detailExercise.gifUrl}
+                  alt={`Hướng dẫn ${detailExercise.name}`}
+                  className={styles.gifImage}
+                  loading="lazy"
+                  onError={(e) => {
+                    // Nếu lỗi mạng, ẩn ảnh đi mà không làm vỡ giao diện
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
+            )}
+
             <div className={styles.instructionSection}>
               <div className={styles.sectionHeader}>Hướng dẫn kỹ thuật:</div>
               {detailExercise.instructions.map((step, idx) => (

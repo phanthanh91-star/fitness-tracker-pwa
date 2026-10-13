@@ -14,7 +14,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay nắm thanh đòn rộng hơn vai một chút, siết chặt xương bả vai xuống ghế.',
       'Hít sâu, hạ thanh đòn chậm rãi có kiểm soát xuống phần giữa ngực.',
       'Thở ra và đẩy mạnh thanh đòn lên vị trí ban đầu mà không khóa khớp khuỷu tay.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Bench-Press.gif'
   },
   {
     id: 'chest-incline-dumbbell-press',
@@ -27,7 +28,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Cầm tạ đơn hai bên đùi, dùng đầu gối hất tạ lên ngang ngực.',
       'Đẩy tạ lên cao trên ngực, giữ cổ tay thẳng.',
       'Hạ tạ xuống từ từ cảm nhận cơ ngực trên căng giãn tối đa rồi đẩy lên.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Incline-Dumbbell-Press.gif'
   },
   {
     id: 'chest-push-up',
@@ -40,7 +42,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Chống hai tay xuống sàn rộng bằng vai, thân người tạo thành một đường thẳng từ đầu đến gót chân.',
       'Siết chặt mông và cơ bụng, hạ thấp ngực xuống cách sàn khoảng 2-3 cm.',
       'Đẩy dứt khoát cơ thể trở lại vị trí ban đầu trong khi giữ lưng thẳng.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Push-Up.gif'
   },
   {
     id: 'chest-dumbbell-fly',
@@ -52,7 +55,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Nằm trên ghế phẳng, hai tay cầm tạ giơ thẳng phía trên ngực, khuỷu tay hơi cong nhẹ.',
       'Mở rộng cánh tay sang hai bên thành hình vòng cung cho đến khi cảm thấy ngực căng.',
       'Dùng lực cơ ngực ép hai tạ trở lại vị trí ban đầu.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Fly.gif'
   },
   {
     id: 'chest-cable-crossover',
@@ -65,7 +69,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Bước một chân lên trước để giữ thăng bằng, hơi đổ người về trước.',
       'Kéo hai tay vòng cung xuống phía trước ngực và chạm nhẹ vào nhau.',
       'Từ từ mở tay về vị trí căng ngực rồi lặp lại.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Cable-Crossover.gif'
   },
 
   // --- LƯNG ---
@@ -80,7 +85,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Cúi người gập hông nắm thanh đòn, giữ lưng thẳng, ngực ưỡn, vai hơi hướng về phía trước.',
       'Dồn lực vào gót chân kéo tạ đứng thẳng lên, siết chặt mông ở đỉnh chuyển động.',
       'Hạ thanh đòn xuống sát ống chân có kiểm soát.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Deadlift.gif'
   },
   {
     id: 'back-pull-up',
@@ -93,7 +99,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay nắm xà ngang với độ rộng lớn hơn vai, lòng bàn tay hướng ra ngoài.',
       'Kéo người lên cho đến khi cằm vượt qua thanh xà, tập trung kéo cùi chỏ xuống hông.',
       'Giữ lại 1 giây rồi hạ người xuống từ từ cho tới khi cánh tay duỗi thẳng hoàn toàn.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Pull-up.gif'
   },
   {
     id: 'back-lat-pulldown',
@@ -106,7 +113,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hơi ngả người về sau khoảng 10-15 độ, ưỡn ngực.',
       'Kéo thanh đòn xuống ngang xương quai xanh, ép chặt cơ xô lại.',
       'Nhả thanh đòn từ từ lên đỉnh chuyển động.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif'
   },
   {
     id: 'back-cable-row',
@@ -119,7 +127,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Lưng thẳng, hai tay nắm chặt tay cầm chữ V.',
       'Kéo tay cầm về phía rốn đồng thời siết mạnh hai xương bả vai lại với nhau.',
       'Dãn tay về trước từ từ cảm nhận lưng kéo giãn.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Seated-Cable-Row.gif'
   },
   {
     id: 'back-dumbbell-row',
@@ -132,7 +141,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Tay còn lại cầm tạ đơn buông thẳng xuống.',
       'Kéo tạ đơn về phía hông, giữ cùi chỏ sát mạn sườn và siết cơ xô.',
       'Hạ tạ xuống chậm rãi và lặp lại.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/One-Arm-Dumbbell-Row.gif'
   },
 
   // --- CHÂN ---
@@ -147,7 +157,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hít sâu, siết bụng, gập hông và đầu gối hạ người xuống như đang ngồi ghế.',
       'Hạ cho tới khi đùi song song hoặc sâu hơn mặt sàn.',
       'Đạp mạnh gót chân đẩy người đứng thẳng dậy và thở ra.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/BARBELL-SQUAT.gif'
   },
   {
     id: 'leg-press',
@@ -159,7 +170,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Ngồi vào máy, đặt hai bàn chân rộng bằng vai trên bàn đạp.',
       'Mở chốt khóa an toàn, hạ bàn đạp xuống từ từ cho tới khi đầu gối gập khoảng 90 độ.',
       'Dùng lực cơ đùi và gót chân đẩy bàn đạp lên, chú ý không khóa khớp đầu gối.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Leg-Press.gif'
   },
   {
     id: 'leg-romanian-deadlift',
@@ -172,7 +184,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Đẩy hông ra phía sau, cúi thân trên về trước trong khi giữ lưng tuyệt đối thẳng.',
       'Hạ tạ qua đầu gối cho tới khi cảm nhận đùi sau căng hết cỡ.',
       'Siết mông đẩy hông về phía trước để trở về vị trí ban đầu.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Romanian-Deadlift.gif'
   },
   {
     id: 'leg-curl',
@@ -185,7 +198,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay nắm chặt tay cầm cố định thân người.',
       'Gập cẳng chân kéo gót chân về phía mông càng sát càng tốt.',
       'Dừng 1 giây rồi hạ chân xuống có kiểm soát.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Lying-Leg-Curl.gif'
   },
   {
     id: 'leg-calf-raise',
@@ -198,7 +212,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hạ gót chân xuống sâu nhất có thể để căng cơ bắp chuối.',
       'Dồn lực vào mũi chân nhón người lên cao hết mức có thể, siết bắp chuối trong 1 giây.',
       'Hạ gót xuống từ từ và lặp lại.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Standing-Calf-Raise.gif'
   },
 
   // --- VAI ---
@@ -213,7 +228,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Cổ tay thẳng, cùi chỏ mở vừa phải khoảng 45 độ so với thân.',
       'Đẩy tạ dứt khoát thẳng lên trên đỉnh đầu.',
       'Hạ tạ chậm rãi về ngang tầm tai rồi tiếp tục.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif'
   },
   {
     id: 'shoulder-lateral-raise',
@@ -225,7 +241,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Đứng thẳng, hai tay cầm tạ đơn buông nhẹ hai bên hông, khuỷu tay hơi cong nhẹ.',
       'Nâng hai tạ sang ngang hai bên cho tới khi tay song song với mặt sàn.',
       'Dẫn hướng bằng cùi chỏ, giữ lại 1 nhịp ở đỉnh rồi hạ tạ xuống chậm.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Lateral-Raise.gif'
   },
   {
     id: 'shoulder-face-pull',
@@ -238,7 +255,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Nắm dây thừng với ngón tay cái hướng về phía bạn, lùi lại vài bước.',
       'Kéo dây thừng về phía mắt, tách hai đầu dây sang hai bên đồng thời xoay ngoài khớp vai.',
       'Ép chặt cơ vai sau và giữ 1 giây trước khi thả về.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Face-Pull.gif'
   },
 
   // --- TAY ---
@@ -253,7 +271,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Chỉ gập cẳng tay cuốn tạ lên phía trước ngực trong khi giữ cùi chỏ cố định.',
       'Siết chặt bắp tay ở điểm cao nhất trong 1 giây.',
       'Hạ tạ xuống từ từ có kiểm soát để kéo giãn bắp tay.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif'
   },
   {
     id: 'arm-tricep-pushdown',
@@ -266,7 +285,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay nắm tay cầm, khép chặt khuỷu tay vào sát hai bên mạn sườn.',
       'Dùng cơ tay sau đẩy thanh cầm xuống thẳng tay chạm đùi.',
       'Siết chặt tay sau 1 giây rồi từ từ thả tay lên ngang ngực.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Triceps-Pushdown.gif'
   },
 
   // --- THỂ TRỌNG (Không cần tạ) ---
@@ -281,7 +301,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Nhảy hai chân ra sau về tư thế hít đất, thực hiện một cái hít đất.',
       'Nhảy hai chân về gần tay, đứng dậy và nhảy vọt lên cao, hai tay vỗ trên đầu.',
       'Đây được tính là 1 lần. Thực hiện liên tục không nghỉ.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/05/Burpee.gif'
   },
   {
     id: 'bw-plank',
@@ -294,7 +315,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Nâng hông lên tạo thành một đường thẳng từ đầu đến gót chân.',
       'Siết chặt cơ bụng, mông và không để hông võng xuống hay nhô lên.',
       'Giữ tư thế theo thời gian quy định, thở đều và bình thường.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/plank.gif'
   },
   {
     id: 'bw-mountain-climber',
@@ -307,7 +329,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Kéo nhanh đầu gối phải về phía ngực, đồng thời duỗi chân trái ra.',
       'Đổi chân liên tục như đang chạy bộ theo chiều nằm ngang.',
       'Giữ hông thẳng, không nhô lên hay xoắn hông sang hai bên.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Mountain-Climber.gif'
   },
   {
     id: 'bw-jump-squat',
@@ -320,7 +343,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Từ điểm thấp nhất, bùng nổ bật nhảy lên cao hết mức có thể.',
       'Tiếp đất nhẹ nhàng bằng mũi chân trước rồi gót chân, gập đầu gối để giảm chấn.',
       'Ngay lập tức chuyển sang lần squat tiếp theo.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Jump-Squat.gif'
   },
   {
     id: 'bw-lunge',
@@ -333,7 +357,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Bước một chân về phía trước dài khoảng hai bước chân.',
       'Hạ đầu gối sau xuống gần chạm sàn, đầu gối trước không vượt qua ngón chân.',
       'Đẩy gót chân trước xuống sàn để đứng dậy, đổi chân và lặp lại.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Lunge.gif'
   },
   {
     id: 'bw-glute-bridge',
@@ -346,7 +371,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay duỗi thẳng dọc thân người, lòng bàn tay úp xuống sàn.',
       'Siết mông và đẩy hông lên cao cho tới khi đùi và thân tạo thành đường thẳng.',
       'Giữ siết mông 2 giây ở đỉnh rồi hạ hông xuống chậm rãi.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Glute-Bridge.gif'
   },
   {
     id: 'bw-diamond-pushup',
@@ -359,7 +385,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Đặt tay ở giữa ngực, giữ thân người thẳng từ đầu đến gót chân.',
       'Hạ ngực xuống gần chạm tay, khuỷu tay gập về phía sau.',
       'Đẩy dứt khoát trở lên vị trí ban đầu.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Diamond-Push-up.gif'
   },
   {
     id: 'bw-wide-pushup',
@@ -372,7 +399,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Giữ thân người thẳng như tấm ván từ đầu đến gót chân.',
       'Hạ ngực xuống sát sàn, cảm nhận cơ ngực ngoài kéo giãn.',
       'Đẩy lên bằng lực cơ ngực là chính.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/06/Wide-Hand-Push-Up.gif'
   },
   {
     id: 'bw-pike-pushup',
@@ -385,7 +413,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay đặt rộng bằng vai, đầu hướng xuống đất giữa hai tay.',
       'Gập khuỷu tay hạ đầu xuống về phía sàn giữa hai tay.',
       'Đẩy dứt khoát trở lên tư thế chữ A.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/04/Pike-Push-up.gif'
   },
   {
     id: 'bw-tricep-dip',
@@ -398,7 +427,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Chân duỗi thẳng hoặc gập nhẹ, trọng lượng dồn vào hai tay.',
       'Hạ người xuống bằng cách gập khuỷu tay cho tới khi khuỷu tay gập khoảng 90 độ.',
       'Đẩy lên dứt khoát trở lại vị trí ban đầu, không khóa khuỷu tay.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Bench-Dips.gif'
   },
   {
     id: 'bw-superman',
@@ -411,7 +441,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Đồng thời nâng hai tay, ngực và hai chân lên khỏi mặt sàn.',
       'Siết chặt cơ lưng dưới và mông ở điểm cao nhất, giữ 2-3 giây.',
       'Hạ người xuống chậm rãi và lặp lại.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/05/Superman-Exercise.gif'
   },
   {
     id: 'bw-high-knees',
@@ -450,7 +481,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Hai tay đặt nhẹ sau đầu hoặc khoanh tay trước ngực.',
       'Siết cơ bụng cuộn phần trên thân mình lên khỏi sàn, chỉ cần vai nhấc lên khoảng 30 cm.',
       'Hạ xuống chậm rãi, không để đầu chạm sàn hoàn toàn để duy trì căng cơ.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Crunch.gif'
   },
   {
     id: 'bw-leg-raise',
@@ -464,7 +496,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
       'Giữ hai chân thẳng (hoặc hơi cong nhẹ), nâng chân lên cho tới khi vuông góc với sàn.',
       'Hạ chân xuống chậm rãi, dừng cách sàn khoảng 5 cm để không tạo đà.',
       'Siết bụng trong suốt quá trình, đừng để lưng dưới cong khỏi sàn.'
-    ]
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/02/Lying-Leg-Raise.gif'
   }
 ];
 

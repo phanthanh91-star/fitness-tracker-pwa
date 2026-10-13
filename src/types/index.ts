@@ -10,6 +10,7 @@ export interface Exercise {
   description: string;
   instructions: string[];
   isBodyweight?: boolean; // true = bài tập không cần tạ
+  gifUrl?: string;        // Đường dẫn ảnh gif hướng dẫn động tác
 }
 
 export interface WorkoutSet {

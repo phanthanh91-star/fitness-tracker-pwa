@@ -173,6 +173,39 @@
   line-height: 1.6;
 }
 
+/* Khung hiển thị ảnh GIF động tác */
+.gifContainer {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gifHeader {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gifBadge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-color);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.gifImage {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  background-color: #0b0e17;
+  display: block;
+  border-radius: 0 0 16px 16px;
+}
+
 .sectionTitle {
   font-size: 14px;
   font-weight: 800;
