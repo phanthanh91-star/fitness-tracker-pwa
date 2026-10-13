@@ -9,17 +9,19 @@ export interface Exercise {
   muscleGroups: string[];
   description: string;
   instructions: string[];
-  isBodyweight?: boolean; // true = bài tập không cần tạ
-  gifUrl?: string;        // Đường dẫn ảnh gif hướng dẫn động tác
+  isBodyweight?: boolean;     // true = bài tập không cần tạ
+  isDurationBased?: boolean;  // true = bài tập tính theo thời gian (giây) như Plank, Wall Sit
+  gifUrl?: string;            // Đường dẫn ảnh gif hướng dẫn động tác
 }
 
 export interface WorkoutSet {
   id: string;
-  reps: number;
-  weight: number;         // 0 nếu là bài thể trọng
-  isBodyweight?: boolean; // true = không cần tạ (tính bằng reps)
+  reps: number;               // Số lần lặp hoặc số giây (nếu là isDurationBased)
+  weight: number;             // 0 nếu là bài thể trọng
+  isBodyweight?: boolean;     // true = không cần tạ (tính bằng reps hoặc giây)
+  isDurationBased?: boolean;  // true = tính theo giây
   completed: boolean;
-  restTime: number;       // Thời gian nghỉ tính bằng giây
+  restTime: number;           // Thời gian nghỉ tính bằng giây
 }
 
 export interface WorkoutExercise {

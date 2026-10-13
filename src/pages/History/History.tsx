@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './History.module.css';
 import { WorkoutSession } from '../../types';
+import { isExerciseDurationBased } from '../../data/exercises';
 
 interface HistoryProps {
   workouts: WorkoutSession[];
@@ -101,22 +102,28 @@ export const History: React.FC<HistoryProps> = ({
                     </div>
                   )}
 
-                  {session.exercises.map((ex) => (
-                    <div key={ex.exerciseId} className={styles.exerciseDetailItem}>
-                      <span className={styles.exerciseDetailName}>{ex.exerciseName}</span>
-                      <div className={styles.setsGrid}>
-                        {ex.sets.map((set, sIdx) => (
-                          <div key={set.id} className={styles.setDetailRow}>
-                            <span>Hiệp {sIdx + 1}</span>
-                            <span>{set.weight} kg × {set.reps} reps</span>
-                            <span className={set.completed ? styles.setDetailCompleted : ''}>
-                              {set.completed ? 'Hoàn thành ✓' : 'Chưa xong'}
-                            </span>
-                          </div>
-                        ))}
+                  {session.exercises.map((ex) => {
+                    const isDuration = isExerciseDurationBased(ex.exerciseId);
+                    return (
+                      <div key={ex.exerciseId} className={styles.exerciseDetailItem}>
+                        <span className={styles.exerciseDetailName}>{ex.exerciseName}</span>
+                        <div className={styles.setsGrid}>
+                          {ex.sets.map((set, sIdx) => (
+                            <div key={set.id} className={styles.setDetailRow}>
+                              <span>Hiệp {sIdx + 1}</span>
+                              <span>
+                                {set.weight > 0 ? `${set.weight} kg × ` : ''}
+                                {set.reps} {isDuration ? 'giây' : 'reps'}
+                              </span>
+                              <span className={set.completed ? styles.setDetailCompleted : ''}>
+                                {set.completed ? 'Hoàn thành ✓' : 'Chưa xong'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
 
                   <div className={styles.cardActions}>
                     <button

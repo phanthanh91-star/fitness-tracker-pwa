@@ -6,6 +6,7 @@ interface SetRowProps {
   index: number;
   set: WorkoutSet;
   isBodyweight?: boolean;
+  isDurationBased?: boolean;
   onUpdate: (updatedSet: WorkoutSet) => void;
   onDelete: (setId: string) => void;
   onCompleteSet: (setId: string) => void;
@@ -15,6 +16,7 @@ export const SetRow: React.FC<SetRowProps> = ({
   index,
   set,
   isBodyweight = false,
+  isDurationBased = false,
   onUpdate,
   onDelete,
   onCompleteSet
@@ -70,12 +72,12 @@ export const SetRow: React.FC<SetRowProps> = ({
           min="0"
           step="1"
           value={set.reps === 0 ? '' : set.reps}
-          placeholder="0"
+          placeholder={isDurationBased ? '30' : '0'}
           onChange={handleRepsChange}
           className={styles.input}
-          aria-label="Số lần lặp (reps)"
+          aria-label={isDurationBased ? 'Thời gian (giây)' : 'Số lần lặp (reps)'}
         />
-        <span className={styles.unit}>reps</span>
+        <span className={styles.unit}>{isDurationBased ? 'giây' : 'reps'}</span>
       </div>
 
       <button

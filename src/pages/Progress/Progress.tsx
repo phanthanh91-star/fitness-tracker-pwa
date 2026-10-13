@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import styles from './Progress.module.css';
 import { WorkoutSession } from '../../types';
-import { INITIAL_EXERCISES, isExerciseBodyweight } from '../../data/exercises';
+import { INITIAL_EXERCISES, isExerciseBodyweight, isExerciseDurationBased } from '../../data/exercises';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -68,19 +68,24 @@ export const Progress: React.FC<ProgressProps> = ({ workouts, favoriteExerciseId
     return isExerciseBodyweight(currentExercise.id, currentExercise.category);
   }, [currentExercise]);
 
-  // Chế độ theo dõi: 'weight' (Mức tạ kg) hoặc 'reps' (Số lần lặp)
+  // Kiểm tra bài tập có tính theo thời gian (giây) như Plank, Wall Sit không
+  const isDurationBased = useMemo(() => {
+    return isExerciseDurationBased(currentExercise.id);
+  }, [currentExercise]);
+
+  // Chế độ theo dõi: 'weight' (Mức tạ kg) hoặc 'reps' (Số lần lặp / Số giây)
   const [metricMode, setMetricMode] = useState<'weight' | 'reps'>(() => {
     return isExerciseBodyweight(initialSelectedId) ? 'reps' : 'weight';
   });
 
   // Tự động chuyển chế độ metric phù hợp khi đổi bài tập
   useEffect(() => {
-    if (isBodyweight) {
+    if (isBodyweight || isDurationBased) {
       setMetricMode('reps');
     } else {
       setMetricMode('weight');
     }
-  }, [selectedExerciseId, isBodyweight]);
+  }, [selectedExerciseId, isBodyweight, isDurationBased]);
 
   // Tổng hợp dữ liệu biểu đồ và thống kê
   const {
@@ -195,16 +200,16 @@ export const Progress: React.FC<ProgressProps> = ({ workouts, favoriteExerciseId
         </select>
       </div>
 
-      {/* Chuyển đổi chế độ theo dõi (Tạ / Reps) */}
+      {/* Chuyển đổi chế độ theo dõi (Tạ / Reps / Giây) */}
       <div className={styles.metricToggle}>
         <button
           type="button"
           className={`${styles.toggleBtn} ${metricMode === 'reps' ? styles.toggleBtnActive : ''}`}
           onClick={() => setMetricMode('reps')}
         >
-          <span>🤸</span>
-          <span>Số lần (Reps)</span>
-          {isBodyweight && <span style={{ fontSize: '10px', opacity: 0.8 }}>(Khuyên dùng)</span>}
+          <span>{isDurationBased ? '⏱️' : '🤸'}</span>
+          <span>{isDurationBased ? 'Thời gian (Giây)' : 'Số lần (Reps)'}</span>
+          {(isBodyweight || isDurationBased) && <span style={{ fontSize: '10px', opacity: 0.8 }}>(Khuyên dùng)</span>}
         </button>
 
         <button
@@ -222,18 +227,22 @@ export const Progress: React.FC<ProgressProps> = ({ workouts, favoriteExerciseId
         {metricMode === 'reps' ? (
           <>
             <div className={styles.statBox}>
-              <span className={styles.statBoxLabel}>Kỷ lục Reps (PR)</span>
+              <span className={styles.statBoxLabel}>
+                {isDurationBased ? 'Kỷ lục thời gian (PR)' : 'Kỷ lục Reps (PR)'}
+              </span>
               <div>
                 <span className={styles.statBoxValue}>{maxRepsEver}</span>
-                <span className={styles.statBoxUnit}>reps</span>
+                <span className={styles.statBoxUnit}>{isDurationBased ? 'giây' : 'reps'}</span>
               </div>
             </div>
 
             <div className={styles.statBox}>
-              <span className={styles.statBoxLabel}>Tổng số Reps tích lũy</span>
+              <span className={styles.statBoxLabel}>
+                {isDurationBased ? 'Tổng thời gian giữ' : 'Tổng số Reps tích lũy'}
+              </span>
               <div>
                 <span className={styles.statBoxValue}>{totalRepsEver}</span>
-                <span className={styles.statBoxUnit}>reps</span>
+                <span className={styles.statBoxUnit}>{isDurationBased ? 'giây' : 'reps'}</span>
               </div>
             </div>
           </>

@@ -308,6 +308,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
     id: 'bw-plank',
     name: 'Plank',
     category: 'Thể Trọng',
+    isBodyweight: true,
+    isDurationBased: true,
     muscleGroups: ['Cơ lõi', 'Cơ bụng', 'Lưng dưới'],
     description: 'Tư thế chống cơ lõi giúp xây dựng nền tảng sức mạnh bụng, lưng và ổn định cột sống.',
     instructions: [
@@ -461,6 +463,8 @@ export const INITIAL_EXERCISES: Exercise[] = [
     id: 'bw-wall-sit',
     name: 'Wall Sit',
     category: 'Thể Trọng',
+    isBodyweight: true,
+    isDurationBased: true,
     muscleGroups: ['Đùi trước', 'Mông', 'Bắp chuối'],
     description: 'Ngồi tường tĩnh giúp rèn luyện sức bền cơ đùi trước và ý chí tập luyện.',
     instructions: [
@@ -507,5 +511,12 @@ export const isExerciseBodyweight = (exerciseId: string, category?: string): boo
   if (exerciseId.startsWith('bw-') || exerciseId === 'chest-push-up' || exerciseId === 'back-pull-up') return true;
   const ex = INITIAL_EXERCISES.find((e) => e.id === exerciseId);
   return Boolean(ex?.isBodyweight || ex?.category === 'Thể Trọng');
+};
+
+// Hàm kiểm tra bài tập có phải tính theo thời gian (giây) như Plank, Wall Sit hay không
+export const isExerciseDurationBased = (exerciseId: string): boolean => {
+  if (exerciseId === 'bw-plank' || exerciseId === 'bw-wall-sit') return true;
+  const ex = INITIAL_EXERCISES.find((e) => e.id === exerciseId);
+  return Boolean(ex?.isDurationBased);
 };
 

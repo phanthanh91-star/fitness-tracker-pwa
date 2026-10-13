@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ActiveWorkout.module.css';
 import { Exercise, WorkoutExercise, WorkoutSet, WorkoutSession, NavTab } from '../../types';
-import { INITIAL_EXERCISES, isExerciseBodyweight } from '../../data/exercises';
+import { INITIAL_EXERCISES, isExerciseBodyweight, isExerciseDurationBased } from '../../data/exercises';
 import { SetRow } from '../../components/SetRow/SetRow';
 import { RestTimer } from '../../components/RestTimer/RestTimer';
 
@@ -230,12 +230,27 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
       {/* Danh sách các bài tập đang tập */}
       {activeExercises.map((exercise) => {
         const isBw = isExerciseBodyweight(exercise.exerciseId);
+        const isDuration = isExerciseDurationBased(exercise.exerciseId);
         return (
           <div key={exercise.exerciseId} className={styles.exerciseBlock}>
             <div className={styles.exerciseHeader}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <h3 className={styles.exerciseTitle}>{exercise.exerciseName}</h3>
-                {isBw && (
+                {isDuration ? (
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      padding: '2px 8px',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(0, 210, 255, 0.15)',
+                      color: 'var(--info-color, #00d2ff)',
+                      fontWeight: 600,
+                      border: '1px solid rgba(0, 210, 255, 0.3)'
+                    }}
+                  >
+                    ⏱️ Giữ theo giây
+                  </span>
+                ) : isBw ? (
                   <span
                     style={{
                       fontSize: '11px',
@@ -249,7 +264,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
                   >
                     Thể trọng
                   </span>
-                )}
+                ) : null}
               </div>
               <button
                 type="button"
@@ -263,7 +278,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
             <div className={styles.setTableHeader}>
               <span className={styles.textCenter}>Hiệp</span>
               <span className={styles.textCenter}>{isBw ? 'Tạ thêm' : 'Khối lượng'}</span>
-              <span className={styles.textCenter}>Số lần</span>
+              <span className={styles.textCenter}>{isDuration ? 'Thời gian' : 'Số lần'}</span>
               <span className={styles.textCenter}>Xong</span>
               <span />
             </div>
@@ -275,6 +290,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
                   index={setIdx}
                   set={set}
                   isBodyweight={isBw}
+                  isDurationBased={isDuration}
                   onUpdate={(updated) => handleUpdateSet(exercise.exerciseId, updated)}
                   onDelete={(id) => handleDeleteSet(exercise.exerciseId, id)}
                   onCompleteSet={handleCompleteSet}
