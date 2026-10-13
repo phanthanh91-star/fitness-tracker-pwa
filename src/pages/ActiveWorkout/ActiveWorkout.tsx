@@ -30,23 +30,27 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
   const [isRestTimerOpen, setIsRestTimerOpen] = useState<boolean>(false);
   const [restTimerSeconds, setRestTimerSeconds] = useState<number>(60);
 
-  // Khởi động đồng hồ thời gian tập
+  // Chỉ tính thời gian khi người dùng đã bấm "Bắt đầu" (activeStartTime != null)
   useEffect(() => {
     if (!activeStartTime) {
-      const now = Date.now();
-      setActiveStartTime(now);
+      setElapsedSeconds(0);
+      return;
     }
-  }, [activeStartTime, setActiveStartTime]);
 
-  useEffect(() => {
+    // Cập nhật ngay lập tức
+    setElapsedSeconds(Math.floor((Date.now() - activeStartTime) / 1000));
+
     const interval = window.setInterval(() => {
-      if (activeStartTime) {
-        setElapsedSeconds(Math.floor((Date.now() - activeStartTime) / 1000));
-      }
+      setElapsedSeconds(Math.floor((Date.now() - activeStartTime) / 1000));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [activeStartTime]);
+
+  // Hàm bấm bắt đầu buổi tập
+  const handleStartWorkout = () => {
+    setActiveStartTime(Date.now());
+  };
 
   const formatTimer = (secs: number) => {
     const mins = Math.floor(secs / 60);
@@ -179,20 +183,34 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
 
   return (
     <div className={styles.container}>
-      {/* Thanh trên cùng: Thời gian & nút Hoàn thành */}
+      {/* Thanh trên cùng: Trạng thái buổi tập & Điều khiển */}
       <div className={styles.topBar}>
         <div className={styles.durationBox}>
-          <span className={styles.clockIcon}>⏱️</span>
-          <span className={styles.timeText}>{formatTimer(elapsedSeconds)}</span>
+          <span className={styles.clockIcon}>{activeStartTime ? '⏱️' : '⏳'}</span>
+          <span className={styles.timeText}>
+            {activeStartTime ? formatTimer(elapsedSeconds) : 'Chưa bắt đầu'}
+          </span>
         </div>
 
-        <button
-          type="button"
-          className={styles.finishBtn}
-          onClick={handleFinishWorkout}
-        >
-          Hoàn thành ✓
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {!activeStartTime ? (
+            <button
+              type="button"
+              className={styles.startBtn}
+              onClick={handleStartWorkout}
+            >
+              ▶ Bắt đầu tập
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.finishBtn}
+              onClick={handleFinishWorkout}
+            >
+              Hoàn thành ✓
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Danh sách các bài tập đang tập */}
