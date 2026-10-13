@@ -3,110 +3,6 @@ import { useLocalStorage } from './useLocalStorage';
 import { WorkoutSession, WorkoutPlan, WorkoutExercise, BodyWeightEntry } from '../types';
 import { supabase } from '../lib/supabase';
 
-// Dữ liệu mẫu ban đầu để người dùng có biểu đồ và lịch sử trực quan ngay lần đầu mở ứng dụng
-const SAMPLE_WORKOUTS: WorkoutSession[] = [
-  {
-    id: 'sample-workout-1',
-    date: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
-    duration: 3120, // 52 phút
-    notes: 'Buổi tập ngực đầu tuần, cảm giác căng cơ rất tốt.',
-    exercises: [
-      {
-        exerciseId: 'chest-bench-press',
-        exerciseName: 'Bench Press',
-        sets: [
-          { id: 's1', reps: 10, weight: 60, completed: true, restTime: 60 },
-          { id: 's2', reps: 8, weight: 70, completed: true, restTime: 90 },
-          { id: 's3', reps: 6, weight: 80, completed: true, restTime: 90 }
-        ]
-      },
-      {
-        exerciseId: 'chest-incline-dumbbell-press',
-        exerciseName: 'Incline Dumbbell Press',
-        sets: [
-          { id: 's4', reps: 10, weight: 22, completed: true, restTime: 60 },
-          { id: 's5', reps: 8, weight: 24, completed: true, restTime: 60 }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'sample-workout-2',
-    date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-    duration: 2700, // 45 phút
-    notes: 'Buổi tập lưng xô, Deadlift đạt PR mới.',
-    exercises: [
-      {
-        exerciseId: 'back-deadlift',
-        exerciseName: 'Deadlift',
-        sets: [
-          { id: 's6', reps: 8, weight: 90, completed: true, restTime: 120 },
-          { id: 's7', reps: 6, weight: 110, completed: true, restTime: 120 },
-          { id: 's8', reps: 4, weight: 120, completed: true, restTime: 150 }
-        ]
-      },
-      {
-        exerciseId: 'back-lat-pulldown',
-        exerciseName: 'Lat Pulldown',
-        sets: [
-          { id: 's9', reps: 12, weight: 50, completed: true, restTime: 60 },
-          { id: 's10', reps: 10, weight: 55, completed: true, restTime: 60 }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'sample-workout-3',
-    date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    duration: 3600, // 60 phút
-    notes: 'Leg day bùng nổ, squat sâu.',
-    exercises: [
-      {
-        exerciseId: 'leg-squat',
-        exerciseName: 'Squat',
-        sets: [
-          { id: 's11', reps: 10, weight: 80, completed: true, restTime: 90 },
-          { id: 's12', reps: 8, weight: 95, completed: true, restTime: 90 },
-          { id: 's13', reps: 6, weight: 105, completed: true, restTime: 120 }
-        ]
-      },
-      {
-        exerciseId: 'leg-press',
-        exerciseName: 'Leg Press',
-        sets: [
-          { id: 's14', reps: 12, weight: 160, completed: true, restTime: 90 },
-          { id: 's15', reps: 10, weight: 180, completed: true, restTime: 90 }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'sample-workout-4',
-    date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-    duration: 2880, // 48 phút
-    notes: 'Bench press lên thêm 2.5kg!',
-    exercises: [
-      {
-        exerciseId: 'chest-bench-press',
-        exerciseName: 'Bench Press',
-        sets: [
-          { id: 's16', reps: 10, weight: 65, completed: true, restTime: 60 },
-          { id: 's17', reps: 8, weight: 75, completed: true, restTime: 90 },
-          { id: 's18', reps: 5, weight: 82.5, completed: true, restTime: 120 }
-        ]
-      },
-      {
-        exerciseId: 'shoulder-press',
-        exerciseName: 'Shoulder Press',
-        sets: [
-          { id: 's19', reps: 10, weight: 40, completed: true, restTime: 60 },
-          { id: 's20', reps: 8, weight: 45, completed: true, restTime: 60 }
-        ]
-      }
-    ]
-  }
-];
-
 // Danh sách kế hoạch tập luyện mẫu
 const SAMPLE_PLANS: WorkoutPlan[] = [
   {
@@ -144,7 +40,7 @@ const SAMPLE_PLANS: WorkoutPlan[] = [
 ];
 
 export function useWorkout() {
-  const [workouts, setWorkouts] = useLocalStorage<WorkoutSession[]>('fittrack_workouts', SAMPLE_WORKOUTS);
+  const [workouts, setWorkouts] = useLocalStorage<WorkoutSession[]>('fittrack_workouts', []);
   const [plans, setPlans] = useLocalStorage<WorkoutPlan[]>('fittrack_plans', SAMPLE_PLANS);
   const [activeExercises, setActiveExercises] = useLocalStorage<WorkoutExercise[]>('fittrack_active_exercises', []);
   const [activeStartTime, setActiveStartTime] = useLocalStorage<number | null>('fittrack_active_start_time', null);
@@ -170,7 +66,7 @@ export function useWorkout() {
           .select('*')
           .order('date', { ascending: false });
 
-        if (!wError && cloudWorkouts && cloudWorkouts.length > 0 && isMounted) {
+        if (!wError && cloudWorkouts && isMounted) {
           const parsedWorkouts: WorkoutSession[] = cloudWorkouts.map((row) => ({
             id: row.id,
             date: row.date,
@@ -179,6 +75,9 @@ export function useWorkout() {
             exercises: typeof row.exercises === 'string' ? JSON.parse(row.exercises) : row.exercises
           }));
           setWorkouts(parsedWorkouts);
+        } else if (isMounted) {
+          // Xóa toàn bộ dữ liệu mẫu cũ (sample-workout-*) còn sót trong máy người dùng
+          setWorkouts((prev) => prev.filter((w) => !w.id.startsWith('sample-workout-')));
         }
 
         // Lấy lịch sử cân nặng từ Supabase
