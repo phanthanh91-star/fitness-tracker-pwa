@@ -1,7 +1,8 @@
 {
   "name": "Fitness Tracker",
   "short_name": "FitTrack",
-  "start_url": "/",
+  "start_url": "/fitness-tracker-pwa/",
+  "scope": "/fitness-tracker-pwa/",
   "display": "standalone",
   "background_color": "#0D1117",
   "theme_color": "#FF6B35",
