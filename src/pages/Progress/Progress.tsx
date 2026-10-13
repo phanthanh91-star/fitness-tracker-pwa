@@ -14,6 +14,7 @@ import {
 
 interface ProgressProps {
   workouts: WorkoutSession[];
+  favoriteExerciseIds?: string[];
 }
 
 interface ChartDataPoint {
@@ -23,16 +24,30 @@ interface ChartDataPoint {
   weight?: number;
 }
 
-export const Progress: React.FC<ProgressProps> = ({ workouts }) => {
-  // Lấy danh sách ID các bài tập đã từng tập trong lịch sử hoặc mặc định bài đầu tiên
+export const Progress: React.FC<ProgressProps> = ({ workouts, favoriteExerciseIds = [] }) => {
+  // Sắp xếp danh sách bài tập: Yêu thích lên trước, sau đó theo tên
+  const sortedExercises = useMemo(() => {
+    return [...INITIAL_EXERCISES].sort((a, b) => {
+      const aFav = favoriteExerciseIds.includes(a.id);
+      const bFav = favoriteExerciseIds.includes(b.id);
+      if (aFav && !bFav) return -1;
+      if (!aFav && bFav) return 1;
+      return a.name.localeCompare(b.name, 'vi');
+    });
+  }, [favoriteExerciseIds]);
+
+  // Lấy bài tập đầu tiên được ưu tiên (ưu tiên bài yêu thích đầu tiên, hoặc bài đã từng tập)
   const initialSelectedId = useMemo(() => {
+    if (favoriteExerciseIds.length > 0) {
+      return favoriteExerciseIds[0];
+    }
     for (const w of workouts) {
       if (w.exercises.length > 0) {
         return w.exercises[0].exerciseId;
       }
     }
-    return INITIAL_EXERCISES[0].id;
-  }, [workouts]);
+    return sortedExercises[0]?.id || INITIAL_EXERCISES[0].id;
+  }, [workouts, favoriteExerciseIds, sortedExercises]);
 
   const [selectedExerciseId, setSelectedExerciseId] = useState<string>(initialSelectedId);
 
@@ -169,11 +184,14 @@ export const Progress: React.FC<ProgressProps> = ({ workouts }) => {
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}
         >
-          {INITIAL_EXERCISES.map((ex) => (
-            <option key={ex.id} value={ex.id}>
-              {ex.name} ({ex.category}) {ex.isBodyweight ? '• Thể trọng' : ''}
-            </option>
-          ))}
+          {sortedExercises.map((ex) => {
+            const isFav = favoriteExerciseIds.includes(ex.id);
+            return (
+              <option key={ex.id} value={ex.id}>
+                {isFav ? '★ ' : ''}{ex.name} ({ex.category}) {ex.isBodyweight ? '• Thể trọng' : ''}
+              </option>
+            );
+          })}
         </select>
       </div>
 

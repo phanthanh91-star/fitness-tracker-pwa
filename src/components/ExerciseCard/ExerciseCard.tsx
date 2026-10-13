@@ -4,12 +4,16 @@ import { Exercise } from '../../types';
 
 interface ExerciseCardProps {
   exercise: Exercise;
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
   onClick?: () => void;
   actionButton?: React.ReactNode;
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
+  isFavorite,
+  onToggleFavorite,
   onClick,
   actionButton
 }) => {
@@ -28,7 +32,22 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.header}>
-        <h4 className={styles.title}>{exercise.name}</h4>
+        <div className={styles.titleRow}>
+          {onToggleFavorite && (
+            <button
+              type="button"
+              className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteBtnActive : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleFavorite();
+              }}
+              title={isFavorite ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
+            >
+              {isFavorite ? '★' : '☆'}
+            </button>
+          )}
+          <h4 className={styles.title}>{exercise.name}</h4>
+        </div>
         <span className={`${styles.categoryBadge} ${getBadgeClass(exercise.category)}`}>
           {exercise.category}
         </span>

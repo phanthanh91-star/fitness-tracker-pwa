@@ -148,6 +148,17 @@ export function useWorkout() {
   const [activeStartTime, setActiveStartTime] = useLocalStorage<number | null>('fittrack_active_start_time', null);
   // Theo dõi cân nặng cơ thể
   const [bodyWeightLog, setBodyWeightLog] = useLocalStorage<BodyWeightEntry[]>('fittrack_bodyweight', []);
+  // Danh sách ID các bài tập yêu thích
+  const [favoriteExerciseIds, setFavoriteExerciseIds] = useLocalStorage<string[]>('fittrack_favorites', []);
+
+  // Bật/tắt trạng thái yêu thích của một bài tập
+  const toggleFavoriteExercise = (exerciseId: string) => {
+    setFavoriteExerciseIds((prev) =>
+      prev.includes(exerciseId)
+        ? prev.filter((id) => id !== exerciseId)
+        : [...prev, exerciseId]
+    );
+  };
 
   // Thêm buổi tập mới vào lịch sử
   const saveWorkout = (session: Omit<WorkoutSession, 'id'>) => {
@@ -335,7 +346,9 @@ export function useWorkout() {
     getWorkoutsThisWeek,
     getWeeklyVolume,
     getWeeklyBodyweightReps,
-    getStreakCount
+    getStreakCount,
+    favoriteExerciseIds,
+    toggleFavoriteExercise
   };
 }
 

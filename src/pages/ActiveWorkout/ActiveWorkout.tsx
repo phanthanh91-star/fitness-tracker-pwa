@@ -10,6 +10,7 @@ interface ActiveWorkoutProps {
   setActiveExercises: React.Dispatch<React.SetStateAction<WorkoutExercise[]>>;
   activeStartTime: number | null;
   setActiveStartTime: React.Dispatch<React.SetStateAction<number | null>>;
+  favoriteExerciseIds?: string[];
   onSaveWorkout: (session: Omit<WorkoutSession, 'id'>) => void;
   onNavigate: (tab: NavTab) => void;
 }
@@ -19,6 +20,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
   setActiveExercises,
   activeStartTime,
   setActiveStartTime,
+  favoriteExerciseIds = [],
   onSaveWorkout,
   onNavigate
 }) => {
@@ -171,14 +173,26 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
   };
 
   // Danh mục lọc trong modal
-  const categories = ['Tất cả', 'Thể Trọng', 'Ngực', 'Lưng', 'Chân', 'Vai', 'Tay'];
+  const categories = ['Tất cả', '★ Yêu thích', 'Thể Trọng', 'Ngực', 'Lưng', 'Chân', 'Vai', 'Tay'];
 
   const filteredExercises = INITIAL_EXERCISES.filter((ex) => {
-    const matchCat = selectedCategory === 'Tất cả' || ex.category === selectedCategory;
+    let matchCat = true;
+    if (selectedCategory === '★ Yêu thích') {
+      matchCat = favoriteExerciseIds.includes(ex.id);
+    } else if (selectedCategory !== 'Tất cả') {
+      matchCat = ex.category === selectedCategory;
+    }
+
     const matchSearch =
       ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       ex.muscleGroups.some((mg) => mg.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchCat && matchSearch;
+  }).sort((a, b) => {
+    const aFav = favoriteExerciseIds.includes(a.id);
+    const bFav = favoriteExerciseIds.includes(b.id);
+    if (aFav && !bFav) return -1;
+    if (!aFav && bFav) return 1;
+    return 0;
   });
 
   return (

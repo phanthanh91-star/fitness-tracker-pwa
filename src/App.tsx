@@ -31,7 +31,9 @@ export const App: React.FC = () => {
     getWorkoutsThisWeek,
     getWeeklyVolume,
     getWeeklyBodyweightReps,
-    getStreakCount
+    getStreakCount,
+    favoriteExerciseIds,
+    toggleFavoriteExercise
   } = useWorkout();
 
   // Thêm bài tập vào buổi tập đang diễn ra
@@ -131,6 +133,7 @@ export const App: React.FC = () => {
             setActiveExercises={setActiveExercises}
             activeStartTime={activeStartTime}
             setActiveStartTime={setActiveStartTime}
+            favoriteExerciseIds={favoriteExerciseIds}
             onSaveWorkout={saveWorkout}
             onNavigate={setCurrentTab}
           />
@@ -152,10 +155,17 @@ export const App: React.FC = () => {
           />
         )}
 
-        {currentTab === 'progress' && <Progress workouts={workouts} />}
+        {currentTab === 'progress' && (
+          <Progress
+            workouts={workouts}
+            favoriteExerciseIds={favoriteExerciseIds}
+          />
+        )}
 
         {currentTab === 'library' && (
           <Library
+            favoriteExerciseIds={favoriteExerciseIds}
+            onToggleFavorite={toggleFavoriteExercise}
             onAddToWorkout={handleAddExerciseToActive}
             onNavigate={setCurrentTab}
           />

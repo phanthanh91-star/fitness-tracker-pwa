@@ -5,24 +5,44 @@ import { INITIAL_EXERCISES } from '../../data/exercises';
 import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
 
 interface LibraryProps {
+  favoriteExerciseIds?: string[];
+  onToggleFavorite?: (exerciseId: string) => void;
   onAddToWorkout?: (exercise: Exercise) => void;
   onNavigate?: (tab: NavTab) => void;
 }
 
-export const Library: React.FC<LibraryProps> = ({ onAddToWorkout, onNavigate }) => {
+export const Library: React.FC<LibraryProps> = ({
+  favoriteExerciseIds = [],
+  onToggleFavorite,
+  onAddToWorkout,
+  onNavigate
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Tất cả');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [detailExercise, setDetailExercise] = useState<Exercise | null>(null);
 
-  const categories = ['Tất cả', 'Thể Trọng', 'Ngực', 'Lưng', 'Chân', 'Vai', 'Tay'];
+  const categories = ['Tất cả', '★ Yêu thích', 'Thể Trọng', 'Ngực', 'Lưng', 'Chân', 'Vai', 'Tay'];
 
   const filteredExercises = INITIAL_EXERCISES.filter((ex) => {
-    const matchesCategory = selectedCategory === 'Tất cả' || ex.category === selectedCategory;
+    let matchesCategory = true;
+    if (selectedCategory === '★ Yêu thích') {
+      matchesCategory = favoriteExerciseIds.includes(ex.id);
+    } else if (selectedCategory !== 'Tất cả') {
+      matchesCategory = ex.category === selectedCategory;
+    }
+
     const matchesSearch =
       ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       ex.muscleGroups.some((mg) => mg.toLowerCase().includes(searchQuery.toLowerCase())) ||
       ex.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
+  }).sort((a, b) => {
+    // Ưu tiên đưa bài yêu thích lên đầu trong danh sách
+    const aFav = favoriteExerciseIds.includes(a.id);
+    const bFav = favoriteExerciseIds.includes(b.id);
+    if (aFav && !bFav) return -1;
+    if (!aFav && bFav) return 1;
+    return 0;
   });
 
   return (
@@ -63,6 +83,8 @@ export const Library: React.FC<LibraryProps> = ({ onAddToWorkout, onNavigate }) 
           <ExerciseCard
             key={exercise.id}
             exercise={exercise}
+            isFavorite={favoriteExerciseIds.includes(exercise.id)}
+            onToggleFavorite={onToggleFavorite ? () => onToggleFavorite(exercise.id) : undefined}
             onClick={() => setDetailExercise(exercise)}
           />
         ))}
