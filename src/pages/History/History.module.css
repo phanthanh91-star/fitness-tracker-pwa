@@ -1,0 +1,205 @@
+.container {
+  padding: 16px 16px 110px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.countBadge {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-color);
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.workoutCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.workoutCard:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.workoutDate {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.workoutTime {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.metaTags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badgeVolume {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-color);
+  background: rgba(255, 107, 53, 0.12);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+}
+
+.badgeDuration {
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+}
+
+.previewExercises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.previewTag {
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-sub);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.expandedDetails {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exerciseDetailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exerciseDetailName {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.setsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.setDetailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--text-sub);
+}
+
+.setDetailCompleted {
+  color: var(--success-color);
+  font-weight: 700;
+}
+
+.notesBox {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-sub);
+  background: rgba(255, 107, 53, 0.06);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border-left: 3px solid var(--accent-color);
+  line-height: 1.5;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.deleteBtn {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.2);
+  color: var(--danger-color);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: var(--danger-color);
+  color: #FFFFFF;
+}
+
+.emptyState {
+  background: var(--card-bg);
+  border: 1px dashed var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 44px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.emptyIcon {
+  font-size: 44px;
+  margin-bottom: 12px;
+}

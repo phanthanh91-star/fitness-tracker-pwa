@@ -1,0 +1,415 @@
+.container {
+  padding: 16px 16px 110px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Thẻ tổng quan cân nặng */
+.summaryCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.currentWeightRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.currentLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.currentValue {
+  font-size: 44px;
+  font-weight: 800;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+
+.currentUnit {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-left: 4px;
+}
+
+.diffBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.diffUp {
+  background: rgba(255, 77, 77, 0.15);
+  color: var(--danger-color);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.diffDown {
+  background: rgba(0, 245, 160, 0.15);
+  color: var(--success-color);
+  border: 1px solid rgba(0, 245, 160, 0.3);
+}
+
+.diffSame {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Thước đo BMI */
+.bmiBox {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bmiTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bmiLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.bmiScore {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.bmiCategory {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 245, 160, 0.15);
+  color: var(--success-color);
+}
+
+.bmiBar {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 2px;
+}
+
+.bmiSegment {
+  flex: 1;
+  height: 100%;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.statVal {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Form nhập cân nặng tiện ích */
+.formCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.formTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.input {
+  background-color: #0b0e17;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+/* Các nút điều chỉnh nhanh cân nặng */
+.quickAdjustRow {
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+}
+
+.adjustBtn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 6px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.adjustBtn:hover {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: rgba(255, 107, 53, 0.4);
+  color: #FFFFFF;
+}
+
+.submitBtn {
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 22px rgba(255, 107, 53, 0.35);
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 107, 53, 0.45);
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Biểu đồ */
+.chartCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chartTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 230px;
+}
+
+/* Lịch sử cân nặng */
+.historyCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.15s;
+}
+
+.historyItem:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.historyLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.historyDate {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.historyNote {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.historyRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.historyWeight {
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: #6e7681;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.deleteBtn:hover {
+  color: var(--danger-color);
+  background: rgba(255, 77, 77, 0.1);
+}
+
+.emptyState {
+  padding: 28px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px dashed var(--card-border);
+}

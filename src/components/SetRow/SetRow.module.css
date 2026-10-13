@@ -1,0 +1,113 @@
+.setRow {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 38px 28px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setRow.completed {
+  background: rgba(0, 245, 160, 0.08);
+  border-color: rgba(0, 245, 160, 0.35);
+  box-shadow: 0 2px 10px rgba(0, 245, 160, 0.1);
+}
+
+.setIndex {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.setRow.completed .setIndex {
+  color: var(--success-color);
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  background: #0b0e17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 6px 8px;
+  transition: all 0.2s;
+}
+
+.inputGroup:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+}
+
+.unit {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 2px;
+  user-select: none;
+}
+
+.checkBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 auto;
+}
+
+.checkBtn:active {
+  transform: scale(0.9);
+}
+
+.checkBtn.checked {
+  background: var(--gradient-success);
+  border-color: transparent;
+  color: #0b0e17;
+  box-shadow: 0 2px 10px rgba(0, 245, 160, 0.45);
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.deleteBtn:hover {
+  color: var(--danger-color);
+  background: rgba(255, 77, 77, 0.1);
+}
