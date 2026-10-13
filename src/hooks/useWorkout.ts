@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { WorkoutSession, WorkoutPlan, WorkoutExercise, BodyWeightEntry } from '../types';
+import { supabase } from '../lib/supabase';
 
 // Dữ liệu mẫu ban đầu để người dùng có biểu đồ và lịch sử trực quan ngay lần đầu mở ứng dụng
 const SAMPLE_WORKOUTS: WorkoutSession[] = [
@@ -151,31 +153,130 @@ export function useWorkout() {
   // Danh sách ID các bài tập yêu thích
   const [favoriteExerciseIds, setFavoriteExerciseIds] = useLocalStorage<string[]>('fittrack_favorites', []);
 
-  // Bật/tắt trạng thái yêu thích của một bài tập
+  // Trạng thái đồng bộ đám mây
+  const [isCloudSyncing, setIsCloudSyncing] = useState<boolean>(false);
+
+  // 1. Tải dữ liệu từ Supabase khi mở ứng dụng (Ưu tiên đám mây, nếu có mạng)
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCloudData() {
+      try {
+        setIsCloudSyncing(true);
+
+        // Lấy danh sách buổi tập từ Supabase
+        const { data: cloudWorkouts, error: wError } = await supabase
+          .from('workouts')
+          .select('*')
+          .order('date', { ascending: false });
+
+        if (!wError && cloudWorkouts && cloudWorkouts.length > 0 && isMounted) {
+          const parsedWorkouts: WorkoutSession[] = cloudWorkouts.map((row) => ({
+            id: row.id,
+            date: row.date,
+            duration: row.duration,
+            notes: row.notes,
+            exercises: typeof row.exercises === 'string' ? JSON.parse(row.exercises) : row.exercises
+          }));
+          setWorkouts(parsedWorkouts);
+        }
+
+        // Lấy lịch sử cân nặng từ Supabase
+        const { data: cloudBw, error: bError } = await supabase
+          .from('bodyweight')
+          .select('*')
+          .order('date', { ascending: false });
+
+        if (!bError && cloudBw && cloudBw.length > 0 && isMounted) {
+          const parsedBw: BodyWeightEntry[] = cloudBw.map((row) => ({
+            id: row.id,
+            date: row.date,
+            weight: Number(row.weight),
+            note: row.note
+          }));
+          setBodyWeightLog(parsedBw);
+        }
+
+        // Lấy bài tập yêu thích từ Supabase
+        const { data: cloudFavorites, error: fError } = await supabase
+          .from('app_state')
+          .select('value')
+          .eq('key', 'favorites')
+          .single();
+
+        if (!fError && cloudFavorites && Array.isArray(cloudFavorites.value) && isMounted) {
+          setFavoriteExerciseIds(cloudFavorites.value);
+        }
+      } catch (err) {
+        console.warn('Không thể đồng bộ từ Supabase, sử dụng bộ nhớ nội bộ:', err);
+      } finally {
+        if (isMounted) setIsCloudSyncing(false);
+      }
+    }
+
+    loadCloudData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Bật/tắt trạng thái yêu thích của một bài tập và đẩy lên Supabase
   const toggleFavoriteExercise = (exerciseId: string) => {
-    setFavoriteExerciseIds((prev) =>
-      prev.includes(exerciseId)
+    setFavoriteExerciseIds((prev) => {
+      const nextFavorites = prev.includes(exerciseId)
         ? prev.filter((id) => id !== exerciseId)
-        : [...prev, exerciseId]
-    );
+        : [...prev, exerciseId];
+
+      // Đẩy lên Supabase ngầm
+      supabase
+        .from('app_state')
+        .upsert({ key: 'favorites', value: nextFavorites, updated_at: new Date().toISOString() })
+        .then(({ error }) => {
+          if (error) console.error('Lỗi lưu yêu thích:', error);
+        });
+
+      return nextFavorites;
+    });
   };
 
-  // Thêm buổi tập mới vào lịch sử
+  // Thêm buổi tập mới vào lịch sử và Supabase
   const saveWorkout = (session: Omit<WorkoutSession, 'id'>) => {
     const newSession: WorkoutSession = {
       ...session,
       id: 'workout-' + Date.now()
     };
     setWorkouts((prev) => [newSession, ...prev]);
-    // Reset active workout
     setActiveExercises([]);
     setActiveStartTime(null);
+
+    // Đồng bộ lên Supabase
+    supabase
+      .from('workouts')
+      .insert({
+        id: newSession.id,
+        date: newSession.date,
+        duration: newSession.duration,
+        exercises: newSession.exercises,
+        notes: newSession.notes
+      })
+      .then(({ error }) => {
+        if (error) console.error('Lỗi lưu buổi tập lên Supabase:', error);
+      });
+
     return newSession;
   };
 
-  // Xóa một buổi tập khỏi lịch sử
+  // Xóa một buổi tập khỏi lịch sử và Supabase
   const deleteWorkout = (id: string) => {
     setWorkouts((prev) => prev.filter((w) => w.id !== id));
+    supabase
+      .from('workouts')
+      .delete()
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) console.error('Lỗi xóa buổi tập trên Supabase:', error);
+      });
   };
 
   // Thêm kế hoạch tập luyện mới
@@ -194,7 +295,7 @@ export function useWorkout() {
     setPlans((prev) => prev.filter((p) => p.id !== id));
   };
 
-  // Lưu bản ghi cân nặng mới (hỗ trợ ngày tùy chọn)
+  // Lưu bản ghi cân nặng mới (hỗ trợ ngày tùy chọn) và đẩy lên Supabase
   const saveBodyWeight = (weight: number, note?: string, date?: string) => {
     let entryDate = new Date().toISOString();
     if (date) {
@@ -210,12 +311,33 @@ export function useWorkout() {
       note
     };
     setBodyWeightLog((prev) => [entry, ...prev]);
+
+    // Đồng bộ lên Supabase
+    supabase
+      .from('bodyweight')
+      .insert({
+        id: entry.id,
+        date: entry.date,
+        weight: entry.weight,
+        note: entry.note
+      })
+      .then(({ error }) => {
+        if (error) console.error('Lỗi lưu cân nặng lên Supabase:', error);
+      });
+
     return entry;
   };
 
-  // Xóa bản ghi cân nặng
+  // Xóa bản ghi cân nặng khỏi Supabase
   const deleteBodyWeight = (id: string) => {
     setBodyWeightLog((prev) => prev.filter((e) => e.id !== id));
+    supabase
+      .from('bodyweight')
+      .delete()
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) console.error('Lỗi xóa cân nặng trên Supabase:', error);
+      });
   };
 
   // Lấy bản ghi cân nặng gần nhất
@@ -348,7 +470,8 @@ export function useWorkout() {
     getWeeklyBodyweightReps,
     getStreakCount,
     favoriteExerciseIds,
-    toggleFavoriteExercise
+    toggleFavoriteExercise,
+    isCloudSyncing
   };
 }
 
