@@ -17,57 +17,52 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   onClick,
   actionButton
 }) => {
-  const getBadgeClass = (category: string) => {
+  const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'Ngực': return styles.badgeChest;
-      case 'Lưng': return styles.badgeBack;
-      case 'Chân': return styles.badgeLegs;
-      case 'Vai': return styles.badgeShoulders;
-      case 'Tay': return styles.badgeArms;
-      case 'Thể Trọng': return styles.badgeBodyweight;
-      default: return '';
+      case 'Ngực': return '🏋️';
+      case 'Lưng': return '🧗';
+      case 'Chân': return '🦵';
+      case 'Vai': return '🦾';
+      case 'Tay': return '💪';
+      case 'Thể Trọng': return '🤸';
+      default: return '⚡';
     }
   };
 
   return (
     <div className={styles.card} onClick={onClick}>
-      <div className={styles.header}>
-        <div className={styles.titleRow}>
-          {onToggleFavorite && (
-            <button
-              type="button"
-              className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteBtnActive : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleFavorite();
-              }}
-              title={isFavorite ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
-            >
-              {isFavorite ? '★' : '☆'}
-            </button>
-          )}
-          <h4 className={styles.title}>{exercise.name}</h4>
+      <div className={styles.leftContent}>
+        <div className={styles.thumb}>
+          <span>{getCategoryIcon(exercise.category)}</span>
         </div>
-        <span className={`${styles.categoryBadge} ${getBadgeClass(exercise.category)}`}>
-          {exercise.category}
-        </span>
+        <div className={styles.infoCol}>
+          <div className={styles.nameRow}>
+            <h4 className={styles.title}>{exercise.name}</h4>
+          </div>
+          <div className={styles.subText}>
+            <span className={styles.categoryName}>{exercise.category}</span>
+            <span className={styles.dot}>•</span>
+            <span className={styles.muscles}>{exercise.muscleGroups.join(', ')}</span>
+          </div>
+        </div>
       </div>
 
-      <p className={styles.description}>{exercise.description}</p>
-
-      <div className={styles.muscleGroups}>
-        {exercise.muscleGroups.map((group) => (
-          <span key={group} className={styles.muscleTag}>
-            {group}
-          </span>
-        ))}
+      <div className={styles.rightContent} onClick={(e) => e.stopPropagation()}>
+        {onToggleFavorite && (
+          <button
+            type="button"
+            className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteBtnActive : ''}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleFavorite();
+            }}
+            title={isFavorite ? 'Bỏ yêu thích' : 'Thêm vào yêu thích'}
+          >
+            {isFavorite ? '★' : '☆'}
+          </button>
+        )}
+        {actionButton}
       </div>
-
-      {actionButton && (
-        <div onClick={(e) => e.stopPropagation()} style={{ marginTop: '8px' }}>
-          {actionButton}
-        </div>
-      )}
     </div>
   );
 };

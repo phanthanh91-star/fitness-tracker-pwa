@@ -1,27 +1,25 @@
 .bottomNav {
   position: fixed;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
-  max-width: 580px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 600px;
   margin: 0 auto;
   height: 64px;
-  background: rgba(18, 23, 38, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 26px;
+  background: rgba(18, 19, 22, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: space-around;
   align-items: center;
   z-index: 1000;
-  padding: 0 6px;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.2);
+  padding: 0 4px calc(env(safe-area-inset-bottom, 0px));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .navItem {
   flex: 1;
-  height: 52px;
+  height: 54px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,33 +27,31 @@
   gap: 3px;
   background: transparent;
   border: none;
-  border-radius: 18px;
-  color: var(--text-muted, #8E99A8);
+  color: #717684;
   cursor: pointer;
   padding: 4px 2px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
   position: relative;
   -webkit-tap-highlight-color: transparent;
 }
 
 .navItem:active {
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
 .navItem.active {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--accent-color);
 }
 
 .icon {
   font-size: 20px;
   line-height: 1;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s ease;
 }
 
 .navItem.active .icon {
-  transform: translateY(-2px) scale(1.15);
-  filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.4));
+  transform: translateY(-2px) scale(1.1);
+  filter: drop-shadow(0 2px 8px rgba(37, 99, 235, 0.4));
 }
 
 .label {

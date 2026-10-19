@@ -5,22 +5,26 @@ interface RestTimerProps {
   initialSeconds?: number;
   isOpen: boolean;
   onClose: () => void;
+  onSelectDuration?: (secs: number) => void;
 }
 
 export const RestTimer: React.FC<RestTimerProps> = ({
-  initialSeconds = 60,
+  initialSeconds = 90,
   isOpen,
-  onClose
+  onClose,
+  onSelectDuration
 }) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(initialSeconds);
   const [isRunning, setIsRunning] = useState<boolean>(true);
   const [totalSeconds, setTotalSeconds] = useState<number>(initialSeconds);
+  const [showPresets, setShowPresets] = useState<boolean>(false);
 
   useEffect(() => {
     if (isOpen) {
       setSecondsLeft(initialSeconds);
       setTotalSeconds(initialSeconds);
       setIsRunning(true);
+      setShowPresets(false);
     }
   }, [isOpen, initialSeconds]);
 
@@ -31,12 +35,11 @@ export const RestTimer: React.FC<RestTimerProps> = ({
         setSecondsLeft((prev) => {
           if (prev <= 1) {
             setIsRunning(false);
-            // Kích hoạt rung trên mobile nếu trình duyệt hỗ trợ
             if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
               try {
-                navigator.vibrate([200, 100, 200]);
+                navigator.vibrate([200, 100, 200, 100, 300]);
               } catch {
-                // Bỏ qua nếu bị chặn quyền
+                // ignore
               }
             }
             return 0;
@@ -66,64 +69,109 @@ export const RestTimer: React.FC<RestTimerProps> = ({
     });
   };
 
+  const handleSetPreset = (presetSeconds: number) => {
+    setTotalSeconds(presetSeconds);
+    setSecondsLeft(presetSeconds);
+    setIsRunning(true);
+    setShowPresets(false);
+    if (onSelectDuration) {
+      onSelectDuration(presetSeconds);
+    }
+  };
+
+  const presetOptions = [
+    { label: '30s', value: 30 },
+    { label: '60s (1p)', value: 60 },
+    { label: '90s (1.5p)', value: 90 },
+    { label: '120s (2p)', value: 120 },
+    { label: '150s (2.5p)', value: 150 },
+    { label: '180s (3p)', value: 180 },
+  ];
+
   return (
-    <div className={styles.restTimerOverlay}>
-      <div className={styles.header}>
-        <div className={styles.title}>
-          <span>⏱️</span>
-          <span>Thời gian nghỉ giữa hiệp</span>
+    <>
+      {showPresets && (
+        <div className={styles.presetBackdrop} onClick={() => setShowPresets(false)}>
+          <div className={styles.presetCard} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.presetTitle}>Chọn thời gian nghỉ chuẩn</div>
+            <div className={styles.presetGrid}>
+              {presetOptions.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  className={`${styles.presetBtn} ${totalSeconds === opt.value ? styles.presetBtnActive : ''}`}
+                  onClick={() => handleSetPreset(opt.value)}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <button
-          type="button"
-          className={styles.closeButton}
-          onClick={onClose}
-          aria-label="Đóng bộ hẹn giờ"
-        >
-          ✕
-        </button>
-      </div>
+      )}
 
-      <div className={styles.timerBody}>
-        <div className={styles.displayWrapper}>
-          <span className={styles.timeDisplay}>{formattedTime}</span>
-          <span className={styles.timeUnit}>giây</span>
+      <div className={styles.floatingTimerBar}>
+        {/* Progress bar line at top */}
+        <div className={styles.progressTrack}>
+          <div
+            className={styles.progressBar}
+            style={{ width: `${Math.min(100, progressPercent)}%` }}
+          />
         </div>
 
-        <div className={styles.controls}>
-          <div className={styles.adjustGroup}>
+        <div className={styles.barContent}>
+          {/* Left: Stopwatch & Time */}
+          <div className={styles.timeGroup} onClick={() => setIsRunning(!isRunning)} title="Chạm để tạm dừng/tiếp tục">
+            <span className={styles.timerIcon}>{secondsLeft === 0 ? '🔔' : isRunning ? '⏱️' : '⏸️'}</span>
+            <span className={`${styles.timeDisplay} ${secondsLeft === 0 ? styles.timeFinished : ''}`}>
+              {formattedTime}
+            </span>
+          </div>
+
+          {/* Center: Suggestion text with dropdown arrow */}
+          <button
+            type="button"
+            className={styles.presetTrigger}
+            onClick={() => setShowPresets(!showPresets)}
+          >
+            <span className={styles.presetLabel}>
+              {secondsLeft === 0
+                ? 'Đã hết giờ nghỉ!'
+                : `Nghỉ ${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, '0')}`}
+            </span>
+            <span className={styles.dropdownArrow}>▾</span>
+          </button>
+
+          {/* Right: Quick adjustment & Close */}
+          <div className={styles.actionGroup}>
             <button
               type="button"
               className={styles.adjustBtn}
               onClick={() => handleAdjust(-15)}
               disabled={secondsLeft <= 0}
+              aria-label="Giảm 15 giây"
             >
-              -15s
+              -15
             </button>
             <button
               type="button"
               className={styles.adjustBtn}
               onClick={() => handleAdjust(15)}
+              aria-label="Tăng 15 giây"
             >
-              +15s
+              +15
+            </button>
+            <button
+              type="button"
+              className={styles.closeBtn}
+              onClick={onClose}
+              aria-label="Đóng đếm giờ"
+            >
+              ✕
             </button>
           </div>
-
-          <button
-            type="button"
-            className={`${styles.btn} ${styles.btnPrimary}`}
-            onClick={() => setIsRunning(!isRunning)}
-          >
-            {secondsLeft === 0 ? 'Hết giờ' : isRunning ? 'Tạm dừng' : 'Tiếp tục'}
-          </button>
         </div>
       </div>
-
-      <div className={styles.progressBarContainer}>
-        <div
-          className={styles.progressBar}
-          style={{ width: `${Math.min(100, progressPercent)}%` }}
-        />
-      </div>
-    </div>
+    </>
   );
 };

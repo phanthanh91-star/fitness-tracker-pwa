@@ -134,6 +134,7 @@ export const App: React.FC = () => {
             activeStartTime={activeStartTime}
             setActiveStartTime={setActiveStartTime}
             favoriteExerciseIds={favoriteExerciseIds}
+            workouts={workouts}
             onSaveWorkout={saveWorkout}
             onNavigate={setCurrentTab}
           />
@@ -165,6 +166,7 @@ export const App: React.FC = () => {
         {currentTab === 'library' && (
           <Library
             favoriteExerciseIds={favoriteExerciseIds}
+            workouts={workouts}
             onToggleFavorite={toggleFavoriteExercise}
             onAddToWorkout={handleAddExerciseToActive}
             onNavigate={setCurrentTab}

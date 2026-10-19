@@ -5,6 +5,7 @@ import { WorkoutSet } from '../../types';
 interface SetRowProps {
   index: number;
   set: WorkoutSet;
+  previousPerformance?: string;
   isBodyweight?: boolean;
   isDurationBased?: boolean;
   onUpdate: (updatedSet: WorkoutSet) => void;
@@ -15,6 +16,7 @@ interface SetRowProps {
 export const SetRow: React.FC<SetRowProps> = ({
   index,
   set,
+  previousPerformance = '-',
   isBodyweight = false,
   isDurationBased = false,
   onUpdate,
@@ -50,8 +52,15 @@ export const SetRow: React.FC<SetRowProps> = ({
 
   return (
     <div className={`${styles.setRow} ${set.completed ? styles.completed : ''}`}>
+      {/* 1. Hiệp */}
       <span className={styles.setIndex}>{index + 1}</span>
 
+      {/* 2. Trước đó */}
+      <span className={styles.previousRecord} title="Thành tích lần trước">
+        {previousPerformance}
+      </span>
+
+      {/* 3. Khối lượng kg */}
       <div className={styles.inputGroup}>
         <input
           type="number"
@@ -66,6 +75,7 @@ export const SetRow: React.FC<SetRowProps> = ({
         <span className={styles.unit}>{isBodyweight ? 'kg+' : 'kg'}</span>
       </div>
 
+      {/* 4. Số lần lặp hoặc giây */}
       <div className={styles.inputGroup}>
         <input
           type="number"
@@ -77,23 +87,26 @@ export const SetRow: React.FC<SetRowProps> = ({
           className={styles.input}
           aria-label={isDurationBased ? 'Thời gian (giây)' : 'Số lần lặp (reps)'}
         />
-        <span className={styles.unit}>{isDurationBased ? 'giây' : 'reps'}</span>
+        <span className={styles.unit}>{isDurationBased ? 's' : 'lần'}</span>
       </div>
 
+      {/* 5. Nút Check hoàn thành tròn GymWork style */}
       <button
         type="button"
         className={`${styles.checkBtn} ${set.completed ? styles.checked : ''}`}
         onClick={handleToggleCompleted}
         aria-label={set.completed ? 'Đánh dấu chưa hoàn thành' : 'Đánh dấu hoàn thành'}
       >
-        {set.completed ? '✓' : '○'}
+        {set.completed ? '✓' : ''}
       </button>
 
+      {/* 6. Nút xóa hiệp nhỏ gọn */}
       <button
         type="button"
         className={styles.deleteBtn}
         onClick={() => onDelete(set.id)}
         aria-label="Xóa hiệp tập"
+        title="Xóa hiệp"
       >
         ✕
       </button>
