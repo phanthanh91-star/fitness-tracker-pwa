@@ -1,6 +1,6 @@
 .floatingTimerBar {
   position: fixed;
-  bottom: 80px;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 24px);
@@ -9,7 +9,7 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(37, 99, 235, 0.2);
-  z-index: 990;
+  z-index: 1200;
   overflow: hidden;
   animation: slideUpFloating 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -157,9 +157,10 @@
 .presetBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 998;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2600;
   display: flex;
   align-items: center;
   justify-content: center;

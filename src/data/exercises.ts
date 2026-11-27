@@ -291,6 +291,21 @@ export const INITIAL_EXERCISES: Exercise[] = [
 
   // --- THỂ TRỌNG (Không cần tạ) ---
   {
+    id: 'bw-jumping-jack',
+    name: 'Jumping Jack',
+    category: 'Thể Trọng',
+    isBodyweight: true,
+    muscleGroups: ['Toàn thân', 'Bắp chân', 'Vai', 'Tim mạch'],
+    description: 'Bài tập bật nhảy toàn thân kinh điển giúp làm nóng cơ thể, cải thiện sức bền tim mạch và đốt cháy calo cực kỳ hiệu quả.',
+    instructions: [
+      'Đứng thẳng người, hai chân khép sát nhau, hai tay thả lỏng dọc theo thân người.',
+      'Nhún gối nhẹ rồi bật nhảy dang rộng hai chân sang hai bên, đồng thời vung hai tay lên cao qua đầu theo hình vòng cung vỗ nhẹ.',
+      'Bật nhảy nhẹ nhàng đưa hai chân và hai tay trở về tư thế ban đầu.',
+      'Tiếp đất êm bằng nửa bàn chân trước và tiếp tục duy trì nhịp điệu liên tục.'
+    ],
+    gifUrl: 'https://fitnessprogramer.com/wp-content/uploads/2021/05/Jumping-Jack.gif'
+  },
+  {
     id: 'bw-burpee',
     name: 'Burpee',
     category: 'Thể Trọng',

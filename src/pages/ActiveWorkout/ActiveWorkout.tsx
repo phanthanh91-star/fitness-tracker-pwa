@@ -55,6 +55,19 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
     exercises: WorkoutExercise[];
   } | null>(null);
 
+  // Ẩn thanh BottomNav và chống cuộn nền khi có bất kỳ modal/sheet nào đang mở
+  const isAnyModalOpen = isExercisePickerOpen || Boolean(actionSheetExerciseId) || showSummaryModal;
+  useEffect(() => {
+    if (isAnyModalOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isAnyModalOpen]);
+
   // Đếm thời gian khi activeStartTime != null
   useEffect(() => {
     if (!activeStartTime) {

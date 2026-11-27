@@ -36,7 +36,7 @@
   background: transparent;
   border: none;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
 }
 
@@ -92,26 +92,38 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2500;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overflow: hidden;
 }
 
 .modalContent {
   width: 100%;
   max-width: 520px;
-  max-height: 88vh;
+  height: 88dvh;
+  max-height: calc(100dvh - 30px);
   background: #16181F;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px 24px 0 0;
-  padding: 16px 20px 28px;
+  padding: 16px 20px calc(max(20px, env(safe-area-inset-bottom, 16px)));
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.8);
+}
+
+.modalScrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
 }
 
 @keyframes slideUpModal {
@@ -202,8 +214,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
+  min-height: 140px;
   max-height: 240px;
+  position: relative;
+}
+
+.gifSkeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #8E94A4;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 24px;
+  text-align: center;
+}
+
+.gifSpinner {
+  font-size: 28px;
+  animation: pulseIcon 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
 }
 
 .gifImage {
@@ -211,6 +246,14 @@
   height: auto;
   max-height: 240px;
   object-fit: contain;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gifImageVisible {
+  display: block;
+  opacity: 1;
 }
 
 /* Segmented Tabs */
@@ -420,17 +463,30 @@
   border-radius: 6px;
 }
 
+.modalFooter {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #16181F;
+  flex-shrink: 0;
+  width: 100%;
+}
+
 .addToWorkoutBtn {
+  width: 100%;
   background: #2563EB;
   color: #FFFFFF;
   border: none;
   border-radius: 14px;
   padding: 14px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.15s;
   box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .addToWorkoutBtn:hover {

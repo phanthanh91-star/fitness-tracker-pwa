@@ -373,7 +373,7 @@
   background: transparent;
   border: none;
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 16px;
   resize: vertical;
   min-height: 40px;
   outline: none;
@@ -411,12 +411,14 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2500;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overflow: hidden;
 }
 
 .dragHandle {
@@ -433,8 +435,9 @@
   background: #181A20;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px 24px 0 0;
-  padding: 16px 20px 32px;
+  padding: 16px 20px calc(max(28px, env(safe-area-inset-bottom, 24px)));
   animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.8);
 }
 
 .sheetHeader {
@@ -519,14 +522,17 @@
 .pickerModalSheet {
   width: 100%;
   max-width: 520px;
-  max-height: 85vh;
+  height: 85dvh;
+  max-height: calc(100dvh - 30px);
   background: #181A20;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px 24px 0 0;
-  padding: 16px 18px 24px;
+  padding: 16px 18px calc(max(20px, env(safe-area-inset-bottom, 16px)));
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.8);
 }
 
 .pickerHeader {
@@ -563,7 +569,7 @@
   background: transparent;
   border: none;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
 }
 
@@ -649,12 +655,15 @@
 }
 
 .exerciseSelectList {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  max-height: 48vh;
+  gap: 8px;
   padding-right: 2px;
+  padding-bottom: 24px;
 }
 
 .pickerItem {
@@ -724,6 +733,9 @@
 .summaryModalCard {
   width: 100%;
   max-width: 440px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: #16181F;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
